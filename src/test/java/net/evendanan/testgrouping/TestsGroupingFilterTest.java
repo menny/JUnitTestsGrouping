@@ -32,7 +32,35 @@ public class TestsGroupingFilterTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData() throws Exception {
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData_1() throws Exception {
+        Filterable runner = Mockito.mock(Filterable.class);
+
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, true);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData_2() throws Exception {
+        System.setProperty(TestsGroupingFilter.TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY, "2");
+
+        Filterable runner = Mockito.mock(Filterable.class);
+
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, true);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData_3() throws Exception {
+        System.setProperty(TestsGroupingFilter.TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY, "1");
+
+        Filterable runner = Mockito.mock(Filterable.class);
+
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, true);
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNotNumber() throws Exception {
+        System.setProperty(TestsGroupingFilter.TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY, "NOT_A_NUMBER");
+        System.setProperty(TestsGroupingFilter.TEST_GROUP_TO_EXECUTE_SYSTEM_PROPERTY_KEY, "1");
+
         Filterable runner = Mockito.mock(Filterable.class);
 
         TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, true);
