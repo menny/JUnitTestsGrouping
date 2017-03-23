@@ -23,6 +23,12 @@ configurations.errorprone {
     resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.18'
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
 repositories {
     jcenter()
     mavenCentral()
