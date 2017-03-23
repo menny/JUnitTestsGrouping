@@ -155,6 +155,34 @@ public class TestsGroupingFilterTest {
     }
 
     @Test
+    public void defaultHashcodeIsStableFromClassName() throws Exception {
+        final TestsGroupingFilter filterFirst = new TestsGroupingFilter(2, 0);
+        final TestsGroupingFilter filterSecond = new TestsGroupingFilter(2, 1);
+
+        final Description description = Mockito.mock(Description.class);
+
+        Mockito.doReturn("a").when(description).getClassName();
+
+        Assert.assertFalse(filterFirst.shouldRun(description));
+        Assert.assertTrue(filterSecond.shouldRun(description));
+
+        Mockito.doReturn("c").when(description).getClassName();
+
+        Assert.assertFalse(filterFirst.shouldRun(description));
+        Assert.assertTrue(filterSecond.shouldRun(description));
+
+        Mockito.doReturn("b").when(description).getClassName();
+
+        Assert.assertTrue(filterFirst.shouldRun(description));
+        Assert.assertFalse(filterSecond.shouldRun(description));
+
+        Mockito.doReturn("d").when(description).getClassName();
+
+        Assert.assertTrue(filterFirst.shouldRun(description));
+        Assert.assertFalse(filterSecond.shouldRun(description));
+    }
+
+    @Test
     public void describe() throws Exception {
         Assert.assertEquals("Execute tests from group 1 (out of 2)", new TestsGroupingFilter(2, 1).describe());
     }
