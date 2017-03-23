@@ -40,10 +40,13 @@ systemProperties['TestsGroupingFilter_TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY'] = 
 Where the environment variable`TEST_GROUP_INDEX` is the current test-group and `TEST_GROUPS_COUNT` is the total number of test groups.
 
 ## Example Scenario
-So, an example could be a Continuous Integration setup where you have 3 machines for running your tests, in each of those machines you will set up
-an environment variable `TEST_GROUPS_COUNT=3`, and `TEST_GROUP_INDEX` which holds the index of the machine (`TEST_GROUP_INDEX=0` for the first, `TEST_GROUP_INDEX=1`
-for the second and `TEST_GROUP_INDEX=2` for the third.
+So, an example could be:
 
+ * a Continuous Integration setup where you have 3 machines for running your tests.
+ * in each of those machines you will set up
+   * an environment variable `TEST_GROUPS_COUNT=3`,
+   * and `TEST_GROUP_INDEX` which holds the index of the machine (`TEST_GROUP_INDEX=0` for the first, `TEST_GROUP_INDEX=1`
+for the second and `TEST_GROUP_INDEX=2` for the third).
 
 ## License
 ```
