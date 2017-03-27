@@ -38,6 +38,20 @@ public class TestsGroupingFilterTest {
         TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, true);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoStrategy() throws Exception {
+        Filterable runner = Mockito.mock(Filterable.class);
+
+        TestsGroupingFilter.addTestsGroupingFilterToRunner(runner, null, 1, 0);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData_NullStrategy() throws Exception {
+        Filterable runner = Mockito.mock(Filterable.class);
+
+        TestsGroupingFilter.addTestsGroupingFilterWithSystemPropertiesData(runner, null, true);
+    }
+
     @Test(expected = IllegalStateException.class)
     public void addTestsGroupingFilterWithSystemPropertiesDataThrowsExceptionIfNoData_2() throws Exception {
         System.setProperty(TestsGroupingFilter.TEST_GROUPS_COUNT_SYSTEM_PROPERTY_KEY, "2");
@@ -184,7 +198,7 @@ public class TestsGroupingFilterTest {
 
     @Test
     public void defaultHashcodeIsStableFromClassName() throws Exception {
-        final TestsGroupingFilter filterFirst = new TestsGroupingFilter(2, 0);
+        final TestsGroupingFilter filterFirst = new TestsGroupingFilter(2,0);
         final TestsGroupingFilter filterSecond = new TestsGroupingFilter(2, 1);
 
         final Description description = Mockito.mock(Description.class);
@@ -218,13 +232,7 @@ public class TestsGroupingFilterTest {
     public static class TestableTestsGroupingFilter extends TestsGroupingFilter {
 
         public TestableTestsGroupingFilter(int groupCount, int groupToExecute) {
-            super(groupCount, groupToExecute);
-        }
-
-        @Override
-        protected int getHashcodeForDescription(Description description) {
-            //using testCount here since it is the only thing I can mock with Mockito.
-            return description.testCount();
+            super(new TestCountStrategy(), groupCount, groupToExecute);
         }
 
         static Description mockDescriptionWithHashcode(int hashcode) {
@@ -233,6 +241,13 @@ public class TestsGroupingFilterTest {
             Mockito.when(description.testCount()).thenReturn(hashcode);
 
             return description;
+        }
+
+        private static class TestCountStrategy implements HashingStrategy {
+            @Override
+            public int calculateHashFromDescription(Description description) {
+                return description.testCount();
+            }
         }
     }
 }
