@@ -19,10 +19,9 @@ public class TestClassHashingStrategyTest {
         Assert.assertNotEquals(
                 hashingStrategy.calculateHashFromDescription(mockDescriptionWithClassName("class1")),
                 hashingStrategy.calculateHashFromDescription(mockDescriptionWithClassName("class2")));
-
     }
 
-    public static Description mockDescriptionWithClassName(String className) {
+    private static Description mockDescriptionWithClassName(String className) {
         Description description = Mockito.mock(Description.class);
         Mockito.when(description.getClassName()).thenReturn(className);
         return description;

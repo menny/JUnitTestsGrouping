@@ -17,10 +17,11 @@ repositories {
 }
 
 dependencies {
-    testCompile 'com.github.menny:JUnitTestsGrouping:0.0.1'
+    testCompile 'com.github.menny:JUnitTestsGrouping:0.1.0'
 }
 ```
 
+### Setup - tests
 Add the filter to your JUnit test-runner. In this example, I created a custom `TestRunner`:
 ```
 public class MyTestRunner extends RobolectricTestRunner {
@@ -47,6 +48,30 @@ So, an example could be:
    * an environment variable `TEST_GROUPS_COUNT=3`,
    * and `TEST_GROUP_INDEX` which holds the index of the machine (`TEST_GROUP_INDEX=0` for the first, `TEST_GROUP_INDEX=1`
 for the second and `TEST_GROUP_INDEX=2` for the third).
+
+## Extending for other grouping types
+The grouping is done by the given `HashingStrategy`, which calculates a hash for the test's `Description` instance, and groups the tests according to that.
+
+By default, `JUnitTestsGrouping` uses `TestClassHashingStrategy` to group tests: it hashes the test-class name. This ensures that tests that are defined in the same class will run in the same group.<br>
+You can change that behavior by providing a different implementation of `HashingStrategy` when constructing `TestsGroupingFilter`.<br>
+For example, you may want to group tests by an `Annotation`:
+```
+public class AnnotationHashingStrategy implements HashingStrategy {
+
+    @Override
+    public int calculateHashFromDescription(Description description) {
+        final Class testClass = description.getTestClass();
+        if (testClass.getAnnotation(Marker1.class) != null) return 0;
+        if (testClass.getAnnotation(Marker2.class) != null) return 1;
+        if (testClass.getAnnotation(Marker3.class) != null) return 2;
+        
+        return 3;
+    }
+}
+```
+
+
+Similar strategy is implemented in `AnnotationHashingStrategy`.
 
 ## License
 ```
