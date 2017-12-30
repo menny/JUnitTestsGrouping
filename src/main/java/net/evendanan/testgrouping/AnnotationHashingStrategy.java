@@ -8,7 +8,7 @@ import java.lang.annotation.Annotation;
  * Groups tests according to a marker {@link Annotation} on the {@link Description#getTestClass()}.
  * Tests with no marching annotation will be grouped into yet another group.
  */
-public class AnnotationHashingStrategy implements HashingStrategy {
+public class AnnotationHashingStrategy extends SimpleHashingStrategyBase {
 
     private Class<? extends Annotation>[] mAnnotationGroups;
 

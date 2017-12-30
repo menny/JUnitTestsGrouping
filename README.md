@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    testCompile 'com.github.menny:JUnitTestsGrouping:0.1.0'
+    testCompile 'com.github.menny:JUnitTestsGrouping:0.2.0'
 }
 ```
 
@@ -56,7 +56,7 @@ By default, `JUnitTestsGrouping` uses `TestClassHashingStrategy` to group tests:
 You can change that behavior by providing a different implementation of `HashingStrategy` when constructing `TestsGroupingFilter`.<br>
 For example, you may want to group tests by an `Annotation`:
 ```
-public class AnnotationHashingStrategy implements HashingStrategy {
+public class AnnotationHashingStrategy extends SimpleHashingStrategyBase {
 
     @Override
     public int calculateHashFromDescription(Description description) {

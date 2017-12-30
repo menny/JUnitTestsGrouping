@@ -243,7 +243,7 @@ public class TestsGroupingFilterTest {
             return description;
         }
 
-        private static class TestCountStrategy implements HashingStrategy {
+        private static class TestCountStrategy extends SimpleHashingStrategyBase {
             @Override
             public int calculateHashFromDescription(Description description) {
                 return description.testCount();
