@@ -1,11 +1,11 @@
 # JUnitTestsGrouping
-A JUnit Filter that will only execute tests in a specific bucket.
+A JUnit Filter for sharding your JUnit tests.
 
 `master` latest build: [![CircleCI](https://circleci.com/gh/menny/JUnitTestsGrouping/tree/master.svg?style=svg)](https://circleci.com/gh/menny/JUnitTestsGrouping/tree/master)<br/>
 `master` coverage: [![codecov](https://codecov.io/gh/menny/JUnitTestsGrouping/branch/master/graph/badge.svg)](https://codecov.io/gh/menny/JUnitTestsGrouping)
 
 ## Usage
-Using JUnit's `Filter` mechanism, `TestsGroupingFilter` will skip tests that are not in the execution group.
+Using JUnit's `Filter` mechanism, `TestsGroupingFilter` will skip tests that are not in the execution group/shard.
 Basically, it calculated the group index base on the test-class name and if this index equals the execution index
 the test will execute, otherwise it will be filtered out.
 
