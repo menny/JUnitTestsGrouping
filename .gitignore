@@ -17,3 +17,11 @@ hs_err_pid*
 
 build/
 .gradle/
+
+codecov.sh
+
+#VSCode
+.vscode/
+.settings/
+.project
+.classpath

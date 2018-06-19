@@ -1,0 +1,17 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk-node
+    steps:
+      - checkout
+      - run: ./ci/check.sh
+      - run: ./ci/test.sh
+      - store_artifacts:
+          path: build/reports/jacoco/coverageTestGrouping/html/
+          destination: coverage/
+      - store_artifacts:
+          path: build/reports/tests/testTestGrouping/
+          destination: tests/
+      - store_test_results:
+          path: build/test-results/testTestGrouping/
