@@ -10,6 +10,17 @@ public class TestableHashingStrategy implements HashingStrategy {
     if (description.getTestClass().getName().contains("TestClassWithTestMethodToSkip")) {
       return -1;
     }
+
+    if (groupsCount == 2) {
+      if (description.getTestClass().getName().contains("TestClassWithRunnerAnnotation")) {
+        return 0;
+      } else if (description.getTestClass().getName().contains("TestClassWithTestMethod")) {
+        return 1;
+      } else {
+        return -1;
+      }
+    }
+    
     return 0;
   }
 }
