@@ -35,7 +35,12 @@ repositories {
 }
 
 dependencies {
-    compile 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'com.google.guava:guava:19.0'
 
-    testCompile 'org.mockito:mockito-core:1.9.5'
+    testImplementation 'org.mockito:mockito-core:1.9.5'
+}
+
+task testTestGrouping(type: Test) {
+    include '**/TestsSuite.class'
 }
